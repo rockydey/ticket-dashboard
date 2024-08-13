@@ -256,7 +256,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     setCurrentTickets(allTickets.slice(indexOfFirstTicket, indexOfLastTicket));
-  }, [indexOfFirstTicket, indexOfLastTicket]);
+  }, [indexOfFirstTicket, indexOfLastTicket, allTickets]);
 
   // Calculate total pages
   const totalPages = Math.ceil(tickets.length / ticketsPerPage);
@@ -264,12 +264,45 @@ const Dashboard = () => {
   // Handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleTotalTicket = () => {
+    setAllTickets(tickets);
+  };
+
+  const handleOpenTicket = () => {
+    const sorted = [...allTickets].sort((a, b) =>
+      a.status === "open" ? -1 : 1
+    );
+    setAllTickets(sorted);
+    setCurrentPage(1);
+  };
+
+  const handleCloserTicket = () => {
+    const sorted = [...allTickets].sort((a, b) =>
+      a.status === "closed" ? -1 : 1
+    );
+    setAllTickets(sorted);
+    setCurrentPage(1);
+  };
+
+  const handleProgressTicket = () => {
+    const sorted = [...allTickets].sort((a, b) =>
+      a.status === "in progress" ? -1 : 1
+    );
+    setAllTickets(sorted);
+    setCurrentPage(1);
+  };
+
   return (
     <div className='grid grid-cols-12 p-3 gap-3'>
       <Sidebar />
       <div className='col-span-10 w-full'>
         <div>
-          <CardView />
+          <CardView
+            handleTotalTicket={handleTotalTicket}
+            handleOpenTicket={handleOpenTicket}
+            handleCloserTicket={handleCloserTicket}
+            handleProgressTicket={handleProgressTicket}
+          />
         </div>
         <div className='mt-5 flex justify-between items-center'>
           <div>
@@ -283,7 +316,7 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
-        <div className=' '>
+        <div className=''>
           {currentTickets.length && <TabView filterTickets={currentTickets} />}
         </div>
         <div className='flex justify-center items-center mt-10 gap-3 '>

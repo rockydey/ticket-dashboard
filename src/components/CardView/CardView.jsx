@@ -1,10 +1,17 @@
 import { BsPrinter, BsTicketDetailed } from "react-icons/bs";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
-const CardView = () => {
+const CardView = ({
+  handleTotalTicket,
+  handleOpenTicket,
+  handleCloserTicket,
+  handleProgressTicket,
+}) => {
   return (
     <div className='bg-slate-200 w-full grid grid-cols-4 gap-4 p-5 rounded-lg'>
-      <div className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
+      <div
+        onClick={handleTotalTicket}
+        className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
         <p className='flex items-center text-green-500 font-semibold justify-end'>
           41% <IoMdArrowDropup />
         </p>
@@ -18,7 +25,9 @@ const CardView = () => {
           </p>
         </div>
       </div>
-      <div className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
+      <div
+        onClick={handleOpenTicket}
+        className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
         <p className='flex items-center text-green-500 font-semibold justify-end'>
           14% <IoMdArrowDropup />
         </p>
@@ -30,7 +39,9 @@ const CardView = () => {
           <p className='text-slate-400 text-sm font-medium'>New Tickets</p>
         </div>
       </div>
-      <div className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
+      <div
+        onClick={handleProgressTicket}
+        className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
         <p className='flex items-center text-green-500 font-semibold justify-end'>
           15% <IoMdArrowDropup />
         </p>
@@ -42,7 +53,9 @@ const CardView = () => {
           <p className='text-slate-400 text-sm font-medium'>In Progress</p>
         </div>
       </div>
-      <div className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
+      <div
+        onClick={handleCloserTicket}
+        className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>
         <p className='flex items-center text-red-500 font-semibold justify-end'>
           5% <IoMdArrowDropdown />
         </p>
