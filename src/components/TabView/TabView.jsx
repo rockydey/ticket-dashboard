@@ -3,7 +3,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 
 const TabView = ({ filterTickets }) => {
   return (
-    <div className='py-10'>
+    <div className='py-10 h-[60vh]'>
       <div className='overflow-x-auto'>
         <table className='table'>
           {/* head */}
@@ -11,7 +11,7 @@ const TabView = ({ filterTickets }) => {
             <tr>
               <th>
                 <label>
-                  <input type='checkbox' className='checkbox' />
+                  <input type='checkbox' />
                 </label>
               </th>
               <th>Ticket Id</th>
@@ -40,7 +40,7 @@ const TabView = ({ filterTickets }) => {
                   <tr key={id}>
                     <th>
                       <label>
-                        <input type='checkbox' className='checkbox' />
+                        <input type='checkbox' />
                       </label>
                     </th>
                     <td className='text-sm font-medium text-slate-600'>

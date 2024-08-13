@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardView from "../../components/CardView/CardView";
 import TabView from "../../components/TabView/TabView";
 import Sidebar from "./Sidebar";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const tickets = [
   {
@@ -243,6 +244,24 @@ const tickets = [
 
 const Dashboard = () => {
   const [allTickets, setAllTickets] = useState(tickets);
+  const [currentTickets, setCurrentTickets] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const ticketsPerPage = 5;
+
+  // Calculate the indices for slicing the data
+  const indexOfLastTicket = currentPage * ticketsPerPage;
+  const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage;
+
+  useEffect(() => {
+    setCurrentTickets(allTickets.slice(indexOfFirstTicket, indexOfLastTicket));
+  }, [indexOfFirstTicket, indexOfLastTicket]);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(tickets.length / ticketsPerPage);
+
+  // Handle page change
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className='grid grid-cols-12 p-3 gap-3'>
@@ -251,10 +270,41 @@ const Dashboard = () => {
         <div>
           <CardView />
         </div>
-        <div>
-          <TabView filterTickets={allTickets} />
+        <div className=''>
+          {currentTickets.length && <TabView filterTickets={currentTickets} />}
         </div>
-        <div>{/* Pagination */}</div>
+        <div className='flex justify-center items-center mt-5 gap-3 '>
+          <div
+            onClick={() => {
+              currentPage !== 1
+                ? setCurrentPage(currentPage - 1)
+                : setCurrentPage(1);
+            }}
+            className='p-2 cursor-pointer text-slate-700 border-2 rounded-full'>
+            <IoIosArrowBack />
+          </div>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => paginate(index + 1)}
+              className={`px-3 py-1 border-2 rounded-full ${
+                currentPage === index + 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-blue-500"
+              }`}>
+              {index + 1}
+            </button>
+          ))}
+          <div
+            onClick={() => {
+              currentPage !== 3
+                ? setCurrentPage(currentPage + 1)
+                : setCurrentPage(3);
+            }}
+            className='p-2 cursor-pointer border-2 rounded-full'>
+            <IoIosArrowForward />
+          </div>
+        </div>
       </div>
     </div>
   );
