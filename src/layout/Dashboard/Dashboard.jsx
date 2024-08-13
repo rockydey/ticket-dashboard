@@ -373,14 +373,14 @@ const Dashboard = () => {
         </div>
         <div className='mt-5 flex justify-between items-center'>
           <div>
-            <h3 className='text-2xl font-bold text-slate-700'>
+            <h3 className=' text-xl lg:text-2xl font-bold text-slate-700'>
               All Tickets ({allTickets.length})
             </h3>
           </div>
           <div>
             <button
               onClick={() => openModal()}
-              className='flex items-center gap-2 px-4 py-2 text-base font-medium bg-green-500 rounded-lg text-white'>
+              className='flex items-center gap-2 lg:px-4 lg:py-2 px-2 py-1 text-base font-medium bg-green-500 rounded-lg text-white'>
               <FaPlus /> New Ticket
             </button>
           </div>
@@ -388,7 +388,7 @@ const Dashboard = () => {
         <div className=''>
           {currentTickets.length && <TabView filterTickets={currentTickets} />}
         </div>
-        <div className='flex justify-center items-center mt-10 gap-3 '>
+        <div className='flex justify-center items-center flex-wrap lg:flex-nowrap mt-10 gap-3 '>
           <div
             onClick={() => {
               currentPage !== 1

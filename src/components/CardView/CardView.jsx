@@ -8,7 +8,7 @@ const CardView = ({
   handleProgressTicket,
 }) => {
   return (
-    <div className='bg-slate-200 w-full grid grid-cols-4 gap-4 p-5 rounded-lg'>
+    <div className='bg-slate-200 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-lg'>
       <div
         onClick={handleTotalTicket}
         className='bg-white px-3 pt-3 pb-5 rounded-lg cursor-pointer'>

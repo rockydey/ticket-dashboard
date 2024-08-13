@@ -3,7 +3,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 
 const TabView = ({ filterTickets }) => {
   return (
-    <div className='mt-5 h-[50vh]'>
+    <div className='mt-5 lg:h-[50vh]'>
       <div className='overflow-x-auto'>
         <table className='table'>
           {/* head */}
@@ -44,7 +44,7 @@ const TabView = ({ filterTickets }) => {
                   <td className='text-sm font-medium text-slate-600'>
                     #{ticketId}
                   </td>
-                  <td className='flex items-center gap-2'>
+                  <td className='flex flex-col lg:flex-row lg:items-center gap-2'>
                     <div>
                       <img
                         src={customer.image}
@@ -131,7 +131,9 @@ const TabView = ({ filterTickets }) => {
                       </div>
                     )}
                   </td>
-                  <td className='text-sm font-medium text-slate-600'>{date}</td>
+                  <td className='text-sm font-medium text-slate-600'>
+                    <p>{date}</p>
+                  </td>
                 </tr>
               )
             )}
