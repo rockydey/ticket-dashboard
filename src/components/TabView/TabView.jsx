@@ -3,7 +3,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 
 const TabView = ({ filterTickets }) => {
   return (
-    <div className='py-10 h-[60vh]'>
+    <div className='mt-5 h-[50vh]'>
       <div className='overflow-x-auto'>
         <table className='table'>
           {/* head */}
