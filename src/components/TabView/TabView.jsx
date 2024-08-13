@@ -1,7 +1,10 @@
-import { FaAngleDown } from "react-icons/fa";
 import { IoPersonAddSharp } from "react-icons/io5";
 
-const TabView = ({ filterTickets }) => {
+const TabView = ({
+  filterTickets,
+  handleChangeStatus,
+  handleChangePriority,
+}) => {
   return (
     <div className='mt-5 lg:h-[50vh]'>
       <div className='overflow-x-auto'>
@@ -47,17 +50,17 @@ const TabView = ({ filterTickets }) => {
                   <td className='flex flex-col lg:flex-row lg:items-center gap-2'>
                     <div>
                       <img
-                        src={customer.image}
-                        alt={customer.name}
+                        src={customer?.image}
+                        alt={customer?.name}
                         className='w-10 h-10 rounded-full'
                       />
                     </div>
                     <div>
                       <p className='text-sm font-semibold text-slate-800'>
-                        {customer.name}
+                        {customer?.name}
                       </p>
                       <p className='text-xs font-medium text-slate-400'>
-                        {customer.email}
+                        {customer?.email}
                       </p>
                     </div>
                   </td>
@@ -65,65 +68,77 @@ const TabView = ({ filterTickets }) => {
                     {subject}
                   </td>
                   <td>
-                    {status === "open" ? (
-                      <p className='text-green-500 text-xs cursor-pointer font-medium bg-green-200 w-fit border border-green-500 px-2 py-[1px] flex items-center gap-1 rounded'>
-                        OPEN <FaAngleDown />
-                      </p>
-                    ) : status === "closed" ? (
-                      <p className='text-red-500 text-xs cursor-pointer font-medium bg-red-200 w-fit border border-red-500 px-2 py-[1px] flex items-center gap-1 rounded'>
-                        CLOSED <FaAngleDown />
-                      </p>
-                    ) : (
-                      <p className='text-orange-500 text-xs cursor-pointer font-medium bg-orange-200 w-fit border border-orange-500 px-2 py-[1px] flex items-center gap-1 rounded'>
-                        IN PROGRESS <FaAngleDown />
-                      </p>
-                    )}
+                    <select
+                      onChange={(e) => {
+                        handleChangeStatus(id, e.target.value);
+                      }}
+                      className={`${
+                        status === "open"
+                          ? "text-green-500 border-green-500 bg-green-200"
+                          : status === "closed"
+                          ? "text-red-500 bg-red-200 border-red-500"
+                          : status === "in progress" &&
+                            "text-orange-500 border-orange-500 bg-orange-200"
+                      } text-xs font-medium w-fit border  px-2 py-[1px] outline-none rounded`}
+                      defaultValue={status}
+                      name='status'
+                      id='status'>
+                      <option value='open'>Open</option>
+                      <option value='closed'>Closed</option>
+                      <option value='in progress'>In Progress</option>
+                    </select>
                   </td>
                   <td>
-                    {priority === "low" ? (
-                      <p className='text-rose-500 text-xs cursor-pointer font-medium bg-rose-200 w-fit border border-rose-500 px-2 py-[1px] flex items-center gap-1 rounded'>
-                        LOW <FaAngleDown />
-                      </p>
-                    ) : priority === "medium" ? (
-                      <p className='text-yellow-500 text-xs cursor-pointer font-medium bg-yellow-200 w-fit border border-yellow-500 px-2 py-[1px] flex items-center gap-1 rounded'>
-                        MEDIUM <FaAngleDown />
-                      </p>
-                    ) : (
-                      <p className='text-purple-500 text-xs cursor-pointer font-medium bg-purple-200 w-fit border border-purple-500 px-2 py-[1px] flex items-center gap-1 rounded'>
-                        HIGH <FaAngleDown />
-                      </p>
-                    )}
+                    <select
+                      onClick={(e) => {
+                        handleChangePriority(id, e.target.value);
+                      }}
+                      className={`${
+                        priority === "low"
+                          ? "text-rose-500 border-rose-500 bg-rose-200"
+                          : priority === "medium"
+                          ? "text-yellow-500 bg-yellow-200 border-yellow-500"
+                          : priority === "high" &&
+                            "text-purple-500 border-purple-500 bg-purple-200"
+                      } text-xs font-medium w-fit border  px-2 py-[1px] outline-none rounded`}
+                      defaultValue={priority}
+                      name='status'
+                      id='status'>
+                      <option value='low'>Low</option>
+                      <option value='medium'>Medium</option>
+                      <option value='High'>High</option>
+                    </select>
                   </td>
                   <td>
-                    {agent.length === 3 ? (
+                    {agent?.length === 3 ? (
                       <div className='avatar-group -space-x-6 rtl:space-x-reverse'>
                         {agent.map((img, index) => (
-                          <div className='avatar'>
-                            <div key={index} className='w-10'>
+                          <div key={index} className='avatar'>
+                            <div className='w-10'>
                               <img src={img} />
                             </div>
                           </div>
                         ))}
                       </div>
-                    ) : agent.length === 2 ? (
+                    ) : agent?.length === 2 ? (
                       <div className='avatar-group -space-x-6 rtl:space-x-reverse'>
                         {agent.map((img, index) => (
-                          <div className='avatar'>
-                            <div key={index} className='w-10'>
+                          <div key={index} className='avatar'>
+                            <div className='w-10'>
                               <img src={img} />
                             </div>
                           </div>
                         ))}
                       </div>
-                    ) : agent.length === 1 ? (
+                    ) : agent?.length === 1 ? (
                       <div className='avatar'>
                         <div className='w-10 rounded-full'>
                           <img src={agent[0]} />
                         </div>
                       </div>
                     ) : (
-                      <div class='avatar placeholder'>
-                        <div class='bg-neutral text-neutral-content w-10 rounded-full'>
+                      <div className='avatar placeholder'>
+                        <div className='bg-neutral text-neutral-content w-10 rounded-full'>
                           <span>
                             <IoPersonAddSharp />
                           </span>

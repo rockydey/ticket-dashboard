@@ -299,6 +299,36 @@ const Dashboard = () => {
     setCurrentTickets(allTickets.slice(indexOfFirstTicket, indexOfLastTicket));
   }, [indexOfFirstTicket, indexOfLastTicket, allTickets]);
 
+  const handleChangeStatus = (id, value) => {
+    console.log(value);
+    const filterItem = currentTickets.find((item) => item.id === id);
+    const updateFilter = { ...filterItem, status: value };
+    const restItem = currentTickets.filter((item) => item.id !== id);
+    setCurrentTickets([...restItem, updateFilter].sort((a, b) => a.id - b.id));
+
+    const storedTickets = JSON.parse(localStorage.getItem("tickets"));
+    const restStored = storedTickets.filter((item) => item.id !== id);
+    const uploadTickets = [...restStored, updateFilter].sort(
+      (a, b) => a.id - b.id
+    );
+    localStorage.setItem("tickets", JSON.stringify(uploadTickets));
+  };
+
+  const handleChangePriority = (id, value) => {
+    console.log(value);
+    const filterItem = currentTickets.find((item) => item.id === id);
+    const updateFilter = { ...filterItem, priority: value };
+    const restItem = currentTickets.filter((item) => item.id !== id);
+    setCurrentTickets([...restItem, updateFilter].sort((a, b) => a.id - b.id));
+
+    const storedTickets = JSON.parse(localStorage.getItem("tickets"));
+    const restStored = storedTickets.filter((item) => item.id !== id);
+    const uploadTickets = [...restStored, updateFilter].sort(
+      (a, b) => a.id - b.id
+    );
+    localStorage.setItem("tickets", JSON.stringify(uploadTickets));
+  };
+
   // Calculate total pages
   const totalPages = Math.ceil(allTickets.length / ticketsPerPage);
 
@@ -336,7 +366,7 @@ const Dashboard = () => {
 
   const handleTicketSubmit = (data) => {
     const newTicket = {
-      id: allTickets.length,
+      id: allTickets.length + 1,
       ticketId: data.ticketId,
       customer: {
         name: data.cName,
@@ -386,7 +416,13 @@ const Dashboard = () => {
           </div>
         </div>
         <div className=''>
-          {currentTickets.length && <TabView filterTickets={currentTickets} />}
+          {currentTickets.length && (
+            <TabView
+              filterTickets={currentTickets}
+              handleChangeStatus={handleChangeStatus}
+              handleChangePriority={handleChangePriority}
+            />
+          )}
         </div>
         <div className='flex justify-center items-center flex-wrap lg:flex-nowrap mt-10 gap-3 '>
           <div
