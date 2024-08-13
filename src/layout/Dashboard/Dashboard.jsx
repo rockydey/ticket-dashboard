@@ -267,6 +267,7 @@ const Dashboard = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [currentPage, setCurrentPage] = useState(1);
+  const [hideSidebar, setHideSidebar] = useState(false);
 
   const ticketsPerPage = 5;
 
@@ -391,8 +392,11 @@ const Dashboard = () => {
 
   return (
     <div className='grid grid-cols-12 p-3 gap-3'>
-      <Sidebar />
-      <div className='col-span-10 w-full'>
+      <Sidebar hideSidebar={hideSidebar} setHideSidebar={setHideSidebar} />
+      <div
+        className={`${
+          hideSidebar ? "col-span-12" : "col-span-10"
+        } lg:col-span-10 w-full`}>
         <div>
           <CardView
             handleTotalTicket={handleTotalTicket}

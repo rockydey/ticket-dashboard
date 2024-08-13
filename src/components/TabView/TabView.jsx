@@ -83,9 +83,19 @@ const TabView = ({
                       defaultValue={status}
                       name='status'
                       id='status'>
-                      <option value='open'>Open</option>
-                      <option value='closed'>Closed</option>
-                      <option value='in progress'>In Progress</option>
+                      <option className='bg-white text-slate-800' value='open'>
+                        Open
+                      </option>
+                      <option
+                        className='bg-white text-slate-800'
+                        value='closed'>
+                        Closed
+                      </option>
+                      <option
+                        className='bg-white text-slate-800'
+                        value='in progress'>
+                        In Progress
+                      </option>
                     </select>
                   </td>
                   <td>
@@ -104,9 +114,17 @@ const TabView = ({
                       defaultValue={priority}
                       name='status'
                       id='status'>
-                      <option value='low'>Low</option>
-                      <option value='medium'>Medium</option>
-                      <option value='High'>High</option>
+                      <option className='bg-white text-slate-800' value='low'>
+                        Low
+                      </option>
+                      <option
+                        className='bg-white text-slate-800'
+                        value='medium'>
+                        Medium
+                      </option>
+                      <option className='bg-white text-slate-800' value='high'>
+                        High
+                      </option>
                     </select>
                   </td>
                   <td>
