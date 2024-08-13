@@ -4,6 +4,9 @@ import TabView from "../../components/TabView/TabView";
 import Sidebar from "./Sidebar";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
+import Modal from "react-modal";
+import { useForm } from "react-hook-form";
+import { RxCrossCircled } from "react-icons/rx";
 
 const tickets = [
   {
@@ -243,12 +246,50 @@ const tickets = [
   },
 ];
 
-const Dashboard = () => {
-  const [allTickets, setAllTickets] = useState(tickets);
-  const [currentTickets, setCurrentTickets] = useState([]);
+const customStyles = {
+  overlay: {
+    backgroundColor: "#000000cc",
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#FBFBFC",
+  },
+};
 
+const Dashboard = () => {
+  const [allTickets, setAllTickets] = useState([]);
+  const [currentTickets, setCurrentTickets] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { register, handleSubmit, reset } = useForm();
   const [currentPage, setCurrentPage] = useState(1);
+
   const ticketsPerPage = 5;
+
+  useEffect(() => {
+    // Check if tickets are already in localStorage
+    const storedTickets = localStorage.getItem("tickets");
+
+    if (storedTickets) {
+      setAllTickets(JSON.parse(storedTickets));
+    } else {
+      // Save initial tickets to localStorage
+      localStorage.setItem("tickets", JSON.stringify(tickets));
+      setAllTickets(tickets);
+    }
+  }, []);
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   // Calculate the indices for slicing the data
   const indexOfLastTicket = currentPage * ticketsPerPage;
@@ -259,13 +300,14 @@ const Dashboard = () => {
   }, [indexOfFirstTicket, indexOfLastTicket, allTickets]);
 
   // Calculate total pages
-  const totalPages = Math.ceil(tickets.length / ticketsPerPage);
+  const totalPages = Math.ceil(allTickets.length / ticketsPerPage);
 
   // Handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleTotalTicket = () => {
-    setAllTickets(tickets);
+    const storedTickets = localStorage.getItem("tickets");
+    setAllTickets(JSON.parse(storedTickets));
   };
 
   const handleOpenTicket = () => {
@@ -292,6 +334,31 @@ const Dashboard = () => {
     setCurrentPage(1);
   };
 
+  const handleTicketSubmit = (data) => {
+    const newTicket = {
+      id: allTickets.length,
+      ticketId: data.ticketId,
+      customer: {
+        name: data.cName,
+        email: data.cEmail,
+        image: data.cImage,
+      },
+      subject: data.subject,
+      status: data.status,
+      priority: data.priority,
+      agent: [],
+      date: data.date,
+    };
+
+    const totalTickets = [...allTickets, newTicket];
+
+    localStorage.setItem("tickets", JSON.stringify(totalTickets));
+    setAllTickets(totalTickets);
+
+    setModalIsOpen(false);
+    reset();
+  };
+
   return (
     <div className='grid grid-cols-12 p-3 gap-3'>
       <Sidebar />
@@ -311,7 +378,9 @@ const Dashboard = () => {
             </h3>
           </div>
           <div>
-            <button className='flex items-center gap-2 px-4 py-2 text-base font-medium bg-green-500 rounded-lg text-white'>
+            <button
+              onClick={() => openModal()}
+              className='flex items-center gap-2 px-4 py-2 text-base font-medium bg-green-500 rounded-lg text-white'>
               <FaPlus /> New Ticket
             </button>
           </div>
@@ -330,28 +399,174 @@ const Dashboard = () => {
             <IoIosArrowBack />
           </div>
           {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => paginate(index + 1)}
-              className={`px-3 py-1 border-2 rounded-full ${
-                currentPage === index + 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-blue-500"
-              }`}>
-              {index + 1}
-            </button>
+            <div key={index + 1}>
+              <button
+                onClick={() => {
+                  paginate(index + 1);
+                }}
+                className={`px-3 py-1 border-2 rounded-full ${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-blue-500"
+                }`}>
+                {index + 1}
+              </button>
+            </div>
           ))}
           <div
             onClick={() => {
-              currentPage !== 3
+              currentPage !== totalPages
                 ? setCurrentPage(currentPage + 1)
-                : setCurrentPage(3);
+                : setCurrentPage(totalPages);
             }}
             className='p-2 cursor-pointer border-2 rounded-full'>
             <IoIosArrowForward />
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel='Example Modal'>
+        <button onClick={closeModal} className='block ml-auto text-2xl'>
+          <RxCrossCircled />
+        </button>
+
+        <div className='flex justify-center items-center h-full '>
+          <form
+            className='shadow-lg p-10 rounded-md flex flex-wrap gap-3 max-w-3xl justify-between bg-white'
+            onSubmit={handleSubmit(handleTicketSubmit)}>
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-2' htmlFor='ticketId'>
+                Ticket Id
+              </label>
+              <input
+                type='text'
+                id='ticketId'
+                name='ticketId'
+                placeholder='TCKT-001'
+                className='border px-5 py-2 rounded outline-none'
+                {...register("ticketId")}
+              />
+            </div>
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-2' htmlFor='subject'>
+                Subject
+              </label>
+              <input
+                type='text'
+                placeholder='Enter subject'
+                name='subject'
+                className='border px-5 py-2 rounded outline-none'
+                id='subject'
+                {...register("subject")}
+              />
+            </div>
+
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-3' htmlFor='cName'>
+                Customer Name
+              </label>
+              <input
+                type='text'
+                placeholder='Enter name'
+                name='cName'
+                className='border px-5 py-2 rounded outline-none'
+                id='cName'
+                {...register("cName")}
+              />
+              {/* <select
+                className='border px-5 py-2 rounded outline-none'
+                name='brand'
+                id='brand'
+                {...register("brand")}>
+                <option value='amd'>AMD</option>
+                <option value='intel'>Intel</option>
+              </select> */}
+            </div>
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-2' htmlFor='cEmail'>
+                Customer Email
+              </label>
+              <input
+                type='email'
+                name='cEmail'
+                placeholder='Enter Email'
+                className='border px-5 py-2 rounded outline-none'
+                id='cEmail'
+                {...register("cEmail")}
+              />
+            </div>
+
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-2' htmlFor='cImage'>
+                Customer Image
+              </label>
+              <input
+                type='text'
+                name='cImage'
+                placeholder='Enter image url'
+                className='border px-5 py-2 rounded outline-none'
+                id='cImage'
+                {...register("cImage")}
+              />
+            </div>
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-2' htmlFor='date'>
+                Date
+              </label>
+              <input
+                type='text'
+                name='date'
+                placeholder='Aug 13, 2024 12.12 PM'
+                className='border px-5 py-2 rounded outline-none'
+                id='date'
+                {...register("date")}
+              />
+            </div>
+
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-3' htmlFor='status'>
+                Status
+              </label>
+              <select
+                className='border px-5 py-2 rounded outline-none'
+                name='status'
+                id='status'
+                {...register("status")}>
+                <option value='open'>Open</option>
+                <option value='closed'>Closed</option>
+                <option value='in progress'>In Progress</option>
+              </select>
+            </div>
+            <div className='flex flex-col w-full max-w-xs'>
+              <label className='mb-3' htmlFor='priority'>
+                Priority
+              </label>
+              <select
+                className='border px-5 py-2 rounded outline-none'
+                name='priority'
+                id='priority'
+                {...register("priority")}>
+                <option value='low'>Low</option>
+                <option value='medium'>Medium</option>
+                <option value='high'>High</option>
+              </select>
+            </div>
+
+            <div className='flex justify-end items-center w-full'>
+              <button
+                className=' px-4 py-3 bg-green-500 rounded-md font-semibold text-white text-lg disabled:bg-gray-500'
+                type='submit'>
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </Modal>
     </div>
   );
 };
