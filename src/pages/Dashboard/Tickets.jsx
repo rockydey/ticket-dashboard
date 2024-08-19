@@ -619,7 +619,6 @@ const Tickets = ({ hideSidebar }) => {
           </form>
         </div>
       </Modal>
-      ;
     </div>
   );
 };
