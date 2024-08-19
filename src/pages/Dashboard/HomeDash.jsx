@@ -356,7 +356,7 @@ const HomeDash = () => {
           </div>
           <div className='flex gap-3'>
             <div
-              className={`${styles.shadow} px-2 lg:px-5 lg:w-[45%] rounded-lg`}>
+              className={`${styles.shadow} px-2 lg:px-5 lg:w-[45%] w-full rounded-lg`}>
               <div className='pt-2'>
                 <h4 className='text-lg font-bold'>Total chats</h4>
                 <p className='text-base'>Current month</p>
@@ -368,19 +368,21 @@ const HomeDash = () => {
             <div className='space-y-3 lg:w-[55%] w-full'>
               <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
                 <div className='pt-2'>
-                  <h4 className='text-lg font-bold'>AHT Individual</h4>
-                  <p className='text-base'>Current month</p>
+                  <h4 className='text-base lg:text-lg font-bold'>
+                    AHT Individual
+                  </h4>
+                  <p className='text-sm lg:text-base'>Current month</p>
                 </div>
-                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                <div className='lg:text-3xl text-2xl font-bold px-8 py-4 flex items-center justify-center'>
                   <h2>29:42</h2>
                 </div>
               </div>
               <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
                 <div className='pt-2'>
-                  <h4 className='text-lg font-bold'>AHT Team</h4>
-                  <p className='text-base'>Current month</p>
+                  <h4 className='text-base lg:text-lg font-bold'>AHT Team</h4>
+                  <p className='text-sm lg:text-base'>Current month</p>
                 </div>
-                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                <div className='lg:text-3xl text-2xl font-bold px-8 py-4 flex items-center justify-center'>
                   <h2>22:59</h2>
                 </div>
               </div>
@@ -411,19 +413,21 @@ const HomeDash = () => {
             <div className='space-y-3 lg:w-[55%] w-full'>
               <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
                 <div className='pt-2'>
-                  <h4 className='text-lg font-bold'>AHT Individual</h4>
-                  <p className='text-base'>Current month</p>
+                  <h4 className='text-base lg:text-lg font-bold'>
+                    AHT Individual
+                  </h4>
+                  <p className='text-sm lg:text-base'>Current month</p>
                 </div>
-                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                <div className='text-2xl lg:text-3xl font-bold px-8 py-4 flex items-center justify-center'>
                   <h2>09:12</h2>
                 </div>
               </div>
               <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
                 <div className='pt-2'>
-                  <h4 className='text-lg font-bold'>AHT Team</h4>
-                  <p className='text-base'>Current month</p>
+                  <h4 className='text-base lg:text-lg font-bold'>AHT Team</h4>
+                  <p className='text-sm lg:text-base'>Current month</p>
                 </div>
-                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                <div className='text-2xl lg:text-3xl font-bold px-8 py-4 flex items-center justify-center'>
                   <h2>09:12</h2>
                 </div>
               </div>
