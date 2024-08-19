@@ -103,9 +103,15 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
                 : "flex gap-5 flex-col h-full items-center lg:items-start"
             } duration-500`}>
             <li className='cursor-pointer lg:px-5'>
-              <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
+              <Link
+                to='/dashboard'
+                className={`${
+                  location.pathname === "/dashboard"
+                    ? "flex gap-3 bg-slate-700 lg:px-5 px-2 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                    : "flex gap-3 items-center text-lg font-medium text-slate-500"
+                }`}>
                 <MdOutlineDashboard />
-              </p>
+              </Link>
             </li>
             <li className='cursor-pointer lg:px-5'>
               <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
@@ -117,10 +123,16 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
                 <MdOutlineAllInbox />
               </p>
             </li>
-            <li className='cursor-pointer'>
-              <p className='flex gap-3 bg-slate-700 lg:px-5 px-2 py-2 rounded-lg items-center text-lg font-medium text-slate-300'>
+            <li className={`cursor-pointer`}>
+              <Link
+                to='/tickets'
+                className={`${
+                  location.pathname === "/tickets"
+                    ? "flex gap-3 bg-slate-700 lg:px-5 px-2 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                    : "flex gap-3 items-center text-lg font-medium text-slate-500"
+                }`}>
                 <LuTicket />
-              </p>
+              </Link>
             </li>
             <li className='cursor-pointer lg:px-5'>
               <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
