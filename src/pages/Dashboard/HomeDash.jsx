@@ -331,13 +331,13 @@ const tickets = [
 
 const HomeDash = () => {
   return (
-    <div className='px-5 pt-5 space-y-3'>
+    <div className='p-5 space-y-3'>
       {/* Top View */}
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
         <div
           className={`${styles.shadow} flex gap-2 items-center justify-center rounded-lg`}>
-          {/* <ResponsiveContainer width='100%' height='100%'>
-            <LineChart width={500} height={300} data={data}>
+          {/* <ResponsiveContainer>
+            <LineChart data={data}>
               <CartesianGrid strokeDasharray='3 3' />
               <XAxis dataKey='name' />
               <YAxis dataKey='time' />
@@ -482,7 +482,7 @@ const HomeDash = () => {
                 </tr>
               </thead>
               <tbody>
-                {chats.slice(0, 5).map((chat, idx) => (
+                {chats.slice(0, 7).map((chat, idx) => (
                   <tr key={idx}>
                     <td>{chat.name}</td>
                     <td>{chat.message.slice(0, 35)}...</td>
@@ -519,7 +519,7 @@ const HomeDash = () => {
                 </tr>
               </thead>
               <tbody>
-                {tickets.slice(0, 5).map((chat, idx) => (
+                {tickets.slice(0, 7).map((chat, idx) => (
                   <tr key={idx}>
                     <td>{chat?.customer?.name}</td>
                     <td>{chat.subject}</td>

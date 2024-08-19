@@ -30,7 +30,7 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
     <div
       className={`${
         !hideSidebar && "col-span-2 bg-slate-900"
-      } lg:col-span-2 lg:bg-slate-900 lg:h-[calc(100vh-24px)] py-5 lg:p-5 rounded-lg duration-500`}>
+      } lg:col-span-2 lg:bg-slate-900 lg:h-[calc(100vh-24px)] py-5 lg:p-5 rounded-lg duration-500 overflow-y-hidden`}>
       {!forMobile ? (
         <ul className='flex gap-5 flex-col h-full'>
           <li
