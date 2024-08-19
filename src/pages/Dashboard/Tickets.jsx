@@ -6,6 +6,7 @@ import { RxCrossCircled } from "react-icons/rx";
 import TabView from "../../components/TabView/TabView";
 import CardView from "../../components/CardView/CardView";
 import Modal from "react-modal";
+import { RiListView } from "react-icons/ri";
 
 const tickets = [
   {
@@ -266,6 +267,7 @@ const Tickets = ({ hideSidebar }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const [currentPage, setCurrentPage] = useState(1);
+  const [listView, setListView] = useState(false);
 
   const ticketsPerPage = 5;
 
@@ -314,7 +316,6 @@ const Tickets = ({ hideSidebar }) => {
   };
 
   const handleChangePriority = (id, value) => {
-    console.log(value);
     const filterItem = currentTickets.find((item) => item.id === id);
     const updateFilter = { ...filterItem, priority: value };
     const restItem = currentTickets.filter((item) => item.id !== id);
@@ -401,64 +402,94 @@ const Tickets = ({ hideSidebar }) => {
           handleProgressTicket={handleProgressTicket}
         />
       </div>
-      <div className='mt-5 flex justify-between items-center'>
+      <div className='mt-5 flex flex-col lg:flex-row justify-between gap-3 lg:items-center px-4'>
         <div>
           <h3 className=' text-xl lg:text-2xl font-bold text-slate-700'>
             All Tickets ({allTickets.length})
           </h3>
         </div>
-        <div>
-          <button
-            onClick={() => openModal()}
-            className='flex items-center gap-2 lg:px-4 lg:py-2 px-2 py-1 text-base font-medium bg-green-500 rounded-lg text-white'>
-            <FaPlus /> New Ticket
-          </button>
+        <div className='flex flex-col lg:flex-row lg:items-center gap-3'>
+          <div>
+            <input
+              className='pl-5 outline-none py-[6px] rounded-lg border-2'
+              type='text'
+              name=''
+              placeholder='Search by name'
+              id=''
+            />
+          </div>
+          <div className='flex gap-3 items-center'>
+            <button
+              onClick={() => setListView(!listView)}
+              className='flex items-center gap-2 lg:px-4 lg:py-2 px-2 py-1 text-base font-medium w-fit bg-orange-500 rounded-lg text-white'>
+              {listView ? (
+                <>
+                  <RiListView /> Less Tickets
+                </>
+              ) : (
+                <>
+                  <RiListView /> All Tickets
+                </>
+              )}
+            </button>
+            <button
+              onClick={() => openModal()}
+              className='flex items-center gap-2 lg:px-4 lg:py-2 px-2 py-1 text-base font-medium w-fit bg-green-500 rounded-lg text-white'>
+              <FaPlus /> New Ticket
+            </button>
+          </div>
         </div>
       </div>
       <div className=''>
         {currentTickets.length && (
           <TabView
+            listView={listView}
+            allTickets={allTickets}
             filterTickets={currentTickets}
             handleChangeStatus={handleChangeStatus}
             handleChangePriority={handleChangePriority}
           />
         )}
       </div>
-      <div className='flex justify-center items-center flex-wrap lg:flex-nowrap mt-10 gap-3 '>
-        <div
-          onClick={() => {
-            currentPage !== 1
-              ? setCurrentPage(currentPage - 1)
-              : setCurrentPage(1);
-          }}
-          className='p-2 cursor-pointer text-slate-700 border-2 rounded-full'>
-          <IoIosArrowBack />
-        </div>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <div key={index + 1}>
-            <button
-              onClick={() => {
-                paginate(index + 1);
-              }}
-              className={`px-3 py-1 border-2 rounded-full ${
-                currentPage === index + 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-blue-500"
-              }`}>
-              {index + 1}
-            </button>
+      {listView ? (
+        <></>
+      ) : (
+        <div className='flex justify-center items-center flex-wrap lg:flex-nowrap mt-10 gap-3 '>
+          <div
+            onClick={() => {
+              currentPage !== 1
+                ? setCurrentPage(currentPage - 1)
+                : setCurrentPage(1);
+            }}
+            className='p-2 cursor-pointer text-slate-700 border-2 rounded-full'>
+            <IoIosArrowBack />
           </div>
-        ))}
-        <div
-          onClick={() => {
-            currentPage !== totalPages
-              ? setCurrentPage(currentPage + 1)
-              : setCurrentPage(totalPages);
-          }}
-          className='p-2 cursor-pointer border-2 rounded-full'>
-          <IoIosArrowForward />
+          {Array.from({ length: totalPages }, (_, index) => (
+            <div key={index + 1}>
+              <button
+                onClick={() => {
+                  paginate(index + 1);
+                }}
+                className={`px-3 py-1 border-2 rounded-full ${
+                  currentPage === index + 1
+                    ? "bg-blue-500 text-white"
+                    : "bg-white text-blue-500"
+                }`}>
+                {index + 1}
+              </button>
+            </div>
+          ))}
+          <div
+            onClick={() => {
+              currentPage !== totalPages
+                ? setCurrentPage(currentPage + 1)
+                : setCurrentPage(totalPages);
+            }}
+            className='p-2 cursor-pointer border-2 rounded-full'>
+            <IoIosArrowForward />
+          </div>
         </div>
-      </div>
+      )}
       {/* Modal */}
       <Modal
         isOpen={modalIsOpen}
