@@ -18,6 +18,9 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
   useEffect(() => {
     const handleResize = () => {
       setForMobile(window.innerWidth < 768);
+      if (window.innerWidth > 768) {
+        setHideSidebar(false);
+      }
     };
 
     handleResize();

@@ -333,7 +333,7 @@ const HomeDash = () => {
   });
 
   return (
-    <div className='p-5 space-y-3 bg-white'>
+    <div className='lg:p-5 space-y-3 bg-white'>
       <div className='grid grid-cols-12 gap-3'>
         <div
           className={`${styles.shadow} pt-5 col-span-12 lg:col-span-4 rounded-lg`}>
@@ -344,92 +344,85 @@ const HomeDash = () => {
             height={350}
           />
         </div>
-        <div className='space-y-3 col-span-12 lg:col-span-8'>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
-            <div
-              className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
-              <div>
-                <BsFillChatDotsFill />
+        <div className='space-y-3 col-span-12 lg:col-span-4'>
+          <div
+            className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
+            <div>
+              <BsFillChatDotsFill />
+            </div>
+            <div>
+              <h3>Chats</h3>
+            </div>
+          </div>
+          <div className='flex gap-3'>
+            <div className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
+              <div className='pt-2'>
+                <h4 className='text-lg font-bold'>Total chats</h4>
+                <p className='text-base'>Current month</p>
               </div>
-              <div>
-                <h3>Chats</h3>
+              <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
+                <h2>68</h2>
               </div>
             </div>
-            <div
-              className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
-              <div>
-                <IoTicketSharp />
+            <div className='space-y-3 w-[55%]'>
+              <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
+                <div className='pt-2'>
+                  <h4 className='text-lg font-bold'>AHT Individual</h4>
+                  <p className='text-base'>Current month</p>
+                </div>
+                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                  <h2>29:42</h2>
+                </div>
               </div>
-              <div>
-                <h3>Tickets</h3>
+              <div className={`${styles.shadow} px-5 rounded-lg`}>
+                <div className='pt-2'>
+                  <h4 className='text-lg font-bold'>AHT Team</h4>
+                  <p className='text-base'>Current month</p>
+                </div>
+                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                  <h2>22:59</h2>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
-            {/* chats */}
-            <div className='flex gap-3'>
-              <div
-                className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
-                <div className='pt-2'>
-                  <h4 className='text-lg font-bold'>Total chats</h4>
-                  <p className='text-base'>Current month</p>
-                </div>
-                <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
-                  <h2>68</h2>
-                </div>
+        </div>
+        <div className='space-y-3 col-span-12 lg:col-span-4'>
+          <div
+            className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
+            <div>
+              <IoTicketSharp />
+            </div>
+            <div>
+              <h3>Tickets</h3>
+            </div>
+          </div>
+          <div className='flex gap-3'>
+            <div className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
+              <div className='pt-2'>
+                <h4 className='text-lg font-bold'>Total tickets</h4>
+                <p className='text-base'>Current month</p>
               </div>
-              <div className='space-y-3 w-[55%]'>
-                <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
-                  <div className='pt-2'>
-                    <h4 className='text-lg font-bold'>AHT Individual</h4>
-                    <p className='text-base'>Current month</p>
-                  </div>
-                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                    <h2>29:42</h2>
-                  </div>
-                </div>
-                <div className={`${styles.shadow} px-5 rounded-lg`}>
-                  <div className='pt-2'>
-                    <h4 className='text-lg font-bold'>AHT Team</h4>
-                    <p className='text-base'>Current month</p>
-                  </div>
-                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                    <h2>22:59</h2>
-                  </div>
-                </div>
+              <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
+                <h2>44</h2>
               </div>
             </div>
-            {/* tickets */}
-            <div className='flex gap-3'>
-              <div
-                className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
+            <div className='space-y-3 w-[55%]'>
+              <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
                 <div className='pt-2'>
-                  <h4 className='text-lg font-bold'>Total tickets</h4>
+                  <h4 className='text-lg font-bold'>AHT Individual</h4>
                   <p className='text-base'>Current month</p>
                 </div>
-                <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
-                  <h2>44</h2>
+                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                  <h2>09:12</h2>
                 </div>
               </div>
-              <div className='space-y-3 w-[55%]'>
-                <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
-                  <div className='pt-2'>
-                    <h4 className='text-lg font-bold'>AHT Individual</h4>
-                    <p className='text-base'>Current month</p>
-                  </div>
-                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                    <h2>09:12</h2>
-                  </div>
+              <div className={`${styles.shadow} px-5 rounded-lg`}>
+                <div className='pt-2'>
+                  <h4 className='text-lg font-bold'>AHT Team</h4>
+                  <p className='text-base'>Current month</p>
                 </div>
-                <div className={`${styles.shadow} px-5 rounded-lg`}>
-                  <div className='pt-2'>
-                    <h4 className='text-lg font-bold'>AHT Team</h4>
-                    <p className='text-base'>Current month</p>
-                  </div>
-                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                    <h2>09:12</h2>
-                  </div>
+                <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                  <h2>09:12</h2>
                 </div>
               </div>
             </div>
