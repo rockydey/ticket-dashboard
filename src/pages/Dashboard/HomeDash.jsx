@@ -12,6 +12,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { MdForwardToInbox, MdOutlineSendAndArchive } from "react-icons/md";
 
 const chats = [
   {
@@ -329,7 +331,7 @@ const tickets = [
 
 const HomeDash = () => {
   return (
-    <div className='p-5 space-y-3'>
+    <div className='px-5 pt-5 space-y-3'>
       {/* Top View */}
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
         <div
@@ -465,7 +467,82 @@ const HomeDash = () => {
       </div>
 
       {/* Bottom View */}
-      <div></div>
+      <div className={`grid grid-cols-1 lg:grid-cols-2 gap-3`}>
+        <div className='space-y-3'>
+          <h3 className='text-2xl font-bold'>All Chats ({chats.length})</h3>
+          <div className='overflow-x-auto'>
+            <table className={`table ${styles.shadow} bg-white`}>
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Message</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chats.slice(0, 5).map((chat, idx) => (
+                  <tr key={idx}>
+                    <td>{chat.name}</td>
+                    <td>{chat.message.slice(0, 35)}...</td>
+                    <td>{chat.time}</td>
+                    <td className='flex gap-3 items-center text-xl'>
+                      <p>
+                        <MdForwardToInbox
+                          className={`${styles.shadow} cursor-pointer`}
+                        />
+                      </p>
+                      <p>
+                        <IoMdCloseCircleOutline
+                          className={`${styles.shadow} cursor-pointer rounded-full`}
+                        />
+                      </p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className='space-y-3'>
+          <h3 className='text-2xl font-bold'>All Tickets ({tickets.length})</h3>
+          <div className='overflow-x-auto'>
+            <table className={`table ${styles.shadow} bg-white`}>
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Subject</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tickets.slice(0, 5).map((chat, idx) => (
+                  <tr key={idx}>
+                    <td>{chat?.customer?.name}</td>
+                    <td>{chat.subject}</td>
+                    <td>{chat.date}</td>
+                    <td className='flex gap-3 items-center text-xl'>
+                      <p>
+                        <MdOutlineSendAndArchive
+                          className={`${styles.shadow} cursor-pointer`}
+                        />
+                      </p>
+                      <p>
+                        <IoMdCloseCircleOutline
+                          className={`${styles.shadow} cursor-pointer rounded-full`}
+                        />
+                      </p>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
