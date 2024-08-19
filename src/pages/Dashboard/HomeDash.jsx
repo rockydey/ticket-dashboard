@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./HomeDash.module.css";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { IoTicketSharp } from "react-icons/io5";
@@ -290,173 +290,147 @@ const tickets = [
 ];
 
 const HomeDash = () => {
-  const chatData = chats.map((chat) => ({
-    x: new Date(`2024-08-01 ${chat.time}`).toString(),
-    y: 1,
-  }));
-
-  const ticketData = tickets.map((ticket) => ({
-    x: new Date(ticket.date).toString(),
-    y: 1,
-  }));
-
-  const combinedData = [...chatData, ...ticketData];
-
-  const chartOptions = {
-    chart: {
-      type: "area",
-      height: 250,
-    },
+  const [chartState, setChartState] = useState({
     series: [
       {
-        name: "Chats & Tickets",
-        data: combinedData,
+        name: "series1",
+        data: [31, 40, 28, 51, 42, 109, 100],
+      },
+      {
+        name: "series2",
+        data: [11, 32, 45, 32, 34, 52, 41],
       },
     ],
-    xaxis: {
-      type: "datetime",
-    },
-    yaxis: {
-      title: {
-        text: "Count",
+    options: {
+      chart: {
+        height: 350,
+        type: "area",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: "smooth",
+      },
+      xaxis: {
+        type: "datetime",
+        categories: [
+          "2018-09-19T00:00:00.000Z",
+          "2018-09-19T01:30:00.000Z",
+          "2018-09-19T02:30:00.000Z",
+          "2018-09-19T03:30:00.000Z",
+          "2018-09-19T04:30:00.000Z",
+          "2018-09-19T05:30:00.000Z",
+          "2018-09-19T06:30:00.000Z",
+        ],
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm",
+        },
       },
     },
-    stroke: {
-      curve: "smooth",
-    },
-    fill: {
-      type: "gradient",
-    },
-  };
+  });
 
   return (
     <div className='p-5 space-y-3 bg-white'>
-      {/* Top View */}
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
+      <div className='grid grid-cols-12 gap-3'>
         <div
-          id='chart'
-          className={`${styles.shadow} flex gap-2 items-center justify-center rounded-lg w-full h-64 pt-3`}>
+          className={`${styles.shadow} pt-5 col-span-12 lg:col-span-4 rounded-lg`}>
           <ReactApexChart
-            options={chartOptions}
-            series={chartOptions.series}
+            options={chartState.options}
+            series={chartState.series}
             type='area'
-            height={250}
+            height={350}
           />
         </div>
-        <div
-          className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
-          <div>
-            <BsFillChatDotsFill />
+        <div className='space-y-3 col-span-12 lg:col-span-8'>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+            <div
+              className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
+              <div>
+                <BsFillChatDotsFill />
+              </div>
+              <div>
+                <h3>Chats</h3>
+              </div>
+            </div>
+            <div
+              className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
+              <div>
+                <IoTicketSharp />
+              </div>
+              <div>
+                <h3>Tickets</h3>
+              </div>
+            </div>
           </div>
-          <div>
-            <h3>Chats</h3>
-          </div>
-        </div>
-        <div
-          className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
-          <div>
-            <IoTicketSharp />
-          </div>
-          <div>
-            <h3>Tickets</h3>
-          </div>
-        </div>
-      </div>
 
-      {/* Middle View */}
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
-        {/* calls */}
-        <div className='flex gap-3'>
-          <div className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
-            <div className='pt-2'>
-              <h4 className='text-lg font-bold'>Total calls</h4>
-              <p className='text-base'>Current month</p>
-            </div>
-            <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
-              <h2>43</h2>
-            </div>
-          </div>
-          <div className='space-y-3 w-[55%]'>
-            <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
-              <div className='pt-2'>
-                <h4 className='text-lg font-bold'>AHT Individual</h4>
-                <p className='text-base'>Current month</p>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+            {/* chats */}
+            <div className='flex gap-3'>
+              <div
+                className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
+                <div className='pt-2'>
+                  <h4 className='text-lg font-bold'>Total chats</h4>
+                  <p className='text-base'>Current month</p>
+                </div>
+                <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
+                  <h2>68</h2>
+                </div>
               </div>
-              <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                <h2>09:12</h2>
-              </div>
-            </div>
-            <div className={`${styles.shadow} px-5 rounded-lg`}>
-              <div className='pt-2'>
-                <h4 className='text-lg font-bold'>AHT Team</h4>
-                <p className='text-base'>Current month</p>
-              </div>
-              <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                <h2>08:44</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* chats */}
-        <div className='flex gap-3'>
-          <div className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
-            <div className='pt-2'>
-              <h4 className='text-lg font-bold'>Total chats</h4>
-              <p className='text-base'>Current month</p>
-            </div>
-            <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
-              <h2>68</h2>
-            </div>
-          </div>
-          <div className='space-y-3 w-[55%]'>
-            <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
-              <div className='pt-2'>
-                <h4 className='text-lg font-bold'>AHT Individual</h4>
-                <p className='text-base'>Current month</p>
-              </div>
-              <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                <h2>29:42</h2>
+              <div className='space-y-3 w-[55%]'>
+                <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
+                  <div className='pt-2'>
+                    <h4 className='text-lg font-bold'>AHT Individual</h4>
+                    <p className='text-base'>Current month</p>
+                  </div>
+                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                    <h2>29:42</h2>
+                  </div>
+                </div>
+                <div className={`${styles.shadow} px-5 rounded-lg`}>
+                  <div className='pt-2'>
+                    <h4 className='text-lg font-bold'>AHT Team</h4>
+                    <p className='text-base'>Current month</p>
+                  </div>
+                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                    <h2>22:59</h2>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={`${styles.shadow} px-5 rounded-lg`}>
-              <div className='pt-2'>
-                <h4 className='text-lg font-bold'>AHT Team</h4>
-                <p className='text-base'>Current month</p>
+            {/* tickets */}
+            <div className='flex gap-3'>
+              <div
+                className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
+                <div className='pt-2'>
+                  <h4 className='text-lg font-bold'>Total tickets</h4>
+                  <p className='text-base'>Current month</p>
+                </div>
+                <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
+                  <h2>44</h2>
+                </div>
               </div>
-              <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                <h2>22:59</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* tickets */}
-        <div className='flex gap-3'>
-          <div className={`${styles.shadow} px-2 lg:px-5 w-[45%] rounded-lg`}>
-            <div className='pt-2'>
-              <h4 className='text-lg font-bold'>Total tickets</h4>
-              <p className='text-base'>Current month</p>
-            </div>
-            <div className='text-8xl lg:h-full font-bold flex justify-center mt-12'>
-              <h2>44</h2>
-            </div>
-          </div>
-          <div className='space-y-3 w-[55%]'>
-            <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
-              <div className='pt-2'>
-                <h4 className='text-lg font-bold'>AHT Individual</h4>
-                <p className='text-base'>Current month</p>
-              </div>
-              <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                <h2>09:12</h2>
-              </div>
-            </div>
-            <div className={`${styles.shadow} px-5 rounded-lg`}>
-              <div className='pt-2'>
-                <h4 className='text-lg font-bold'>AHT Team</h4>
-                <p className='text-base'>Current month</p>
-              </div>
-              <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
-                <h2>09:12</h2>
+              <div className='space-y-3 w-[55%]'>
+                <div className={`${styles.shadow} px-2 lg:px-5 rounded-lg`}>
+                  <div className='pt-2'>
+                    <h4 className='text-lg font-bold'>AHT Individual</h4>
+                    <p className='text-base'>Current month</p>
+                  </div>
+                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                    <h2>09:12</h2>
+                  </div>
+                </div>
+                <div className={`${styles.shadow} px-5 rounded-lg`}>
+                  <div className='pt-2'>
+                    <h4 className='text-lg font-bold'>AHT Team</h4>
+                    <p className='text-base'>Current month</p>
+                  </div>
+                  <div className='text-3xl font-bold px-8 py-4 flex items-center justify-center'>
+                    <h2>09:12</h2>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
