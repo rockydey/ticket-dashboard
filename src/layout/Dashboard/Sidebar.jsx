@@ -9,9 +9,11 @@ import {
   MdOutlineHelpOutline,
 } from "react-icons/md";
 import { TbAnalyze } from "react-icons/tb";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = ({ hideSidebar, setHideSidebar }) => {
   const [forMobile, setForMobile] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,10 +33,19 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
       } lg:col-span-2 lg:bg-slate-900 lg:h-[calc(100vh-24px)] py-5 lg:p-5 rounded-lg duration-500`}>
       {!forMobile ? (
         <ul className='flex gap-5 flex-col h-full'>
-          <li className='cursor-pointer px-5'>
-            <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
+          <li
+            className={`${
+              location.pathname === "/dashboard" ? "" : "px-5"
+            } cursor-pointer`}>
+            <Link
+              to='/dashboard'
+              className={`${
+                location.pathname === "/dashboard"
+                  ? "flex gap-3 bg-slate-700 px-5 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                  : "flex gap-3 items-center text-lg font-medium text-slate-500"
+              }`}>
               <MdOutlineDashboard /> Dashboard
-            </p>
+            </Link>
           </li>
           <li className='cursor-pointer px-5'>
             <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
@@ -46,10 +57,19 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
               <MdOutlineAllInbox /> Inbox
             </p>
           </li>
-          <li className='cursor-pointer'>
-            <p className='flex gap-3 bg-slate-700 px-5 py-2 rounded-lg items-center text-lg font-medium text-slate-300'>
+          <li
+            className={`${
+              location.pathname === "/tickets" ? "" : "px-5"
+            } cursor-pointer`}>
+            <Link
+              to='/tickets'
+              className={`${
+                location.pathname === "/tickets"
+                  ? "flex gap-3 bg-slate-700 px-5 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                  : "flex gap-3 items-center text-lg font-medium text-slate-500"
+              }`}>
               <LuTicket /> Tickets
-            </p>
+            </Link>
           </li>
           <li className='cursor-pointer px-5'>
             <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
