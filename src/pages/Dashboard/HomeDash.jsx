@@ -26,37 +26,37 @@ const chats = [
     name: "Bob Smith",
     message:
       "Thanks, Alice! I'll go through the documents tonight. Looking forward to discussing the new project proposal in the meeting.",
-    time: "10:12 AM",
+    time: "10:20 AM",
   },
   {
     name: "Charlie Davis",
     message:
       "I've already reviewed the documents and have a few questions about the timeline. We can go over them during the meeting.",
-    time: "10:12 AM",
+    time: "10:24 AM",
   },
   {
     name: "Diana Patel",
     message:
       "I have some suggestions for the design phase of the project. I will prepare a brief presentation to share with the team.",
-    time: "10:12 AM",
+    time: "10:32 AM",
   },
   {
     name: "Ethan Wright",
     message:
       "I am concerned about the budget allocation for this project. We need to ensure we stay within the limits while achieving our goals.",
-    time: "10:12 AM",
+    time: "10:36 AM",
   },
   {
     name: "Fiona Clark",
     message:
       "Good point, Ethan. I will double-check the numbers and provide an updated budget report before the meeting.",
-    time: "10:12 AM",
+    time: "10:44 AM",
   },
   {
     name: "George Lee",
     message:
       "Let's make sure we're all aligned on the project objectives. It’s crucial that everyone understands the end goal.",
-    time: "10:12 AM",
+    time: "10:48 AM",
   },
 ];
 
@@ -67,27 +67,27 @@ const data = [
   },
   {
     name: "Bob Smith",
-    time: "10:12 AM",
+    time: "10:20 AM",
   },
   {
     name: "Charlie Davis",
-    time: "10:12 AM",
+    time: "10:24 AM",
   },
   {
     name: "Diana Patel",
-    time: "10:12 AM",
+    time: "10:32 AM",
   },
   {
     name: "Ethan Wright",
-    time: "10:12 AM",
+    time: "10:36 AM",
   },
   {
     name: "Fiona Clark",
-    time: "10:12 AM",
+    time: "10:44 AM",
   },
   {
     name: "George Lee",
-    time: "10:12 AM",
+    time: "10:48 AM",
   },
 ];
 
@@ -330,21 +330,43 @@ const tickets = [
 ];
 
 const HomeDash = () => {
+  const convertTimeToMinutes = (timeStr) => {
+    const [time, period] = timeStr.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+    if (period === "PM" && hours !== 12) {
+      hours += 12;
+    } else if (period === "AM" && hours === 12) {
+      hours = 0;
+    }
+    return hours * 60 + minutes;
+  };
+
+  const formattedData = data.map((item) => ({
+    name: item.name,
+    time: convertTimeToMinutes(item.time),
+  }));
+
   return (
-    <div className='p-5 space-y-3'>
+    <div className='p-5 space-y-3 bg-white'>
       {/* Top View */}
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
         <div
-          className={`${styles.shadow} flex gap-2 items-center justify-center rounded-lg`}>
-          {/* <ResponsiveContainer>
-            <LineChart data={data}>
-              <CartesianGrid strokeDasharray='3 3' />
+          className={`${styles.shadow} flex gap-2 items-center justify-center rounded-lg w-full h-64 p-5`}>
+          <ResponsiveContainer width='100%' height='100%'>
+            <LineChart width={400} height={300} data={formattedData}>
               <XAxis dataKey='name' />
-              <YAxis dataKey='time' />
-              <Tooltip />
+              <YAxis
+                label={{
+                  value: "Time",
+                  angle: -90,
+                  position: "insideLeft",
+                }}
+              />
+              <Tooltip labelFormatter={(name) => `Name: ${name}`} />
               <Legend />
+              <Line type='monotone' dataKey='time' stroke='#8884d8' />
             </LineChart>
-          </ResponsiveContainer> */}
+          </ResponsiveContainer>
         </div>
         <div
           className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
@@ -470,8 +492,8 @@ const HomeDash = () => {
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-3`}>
         <div className='space-y-3'>
           <h3 className='text-2xl font-bold'>All Chats ({chats.length})</h3>
-          <div className='overflow-x-auto'>
-            <table className={`table ${styles.shadow} bg-white`}>
+          <div className={`overflow-x-auto ${styles.shadow} rounded-lg`}>
+            <table className={`table`}>
               {/* head */}
               <thead>
                 <tr>
@@ -488,11 +510,12 @@ const HomeDash = () => {
                     <td>{chat.message.slice(0, 35)}...</td>
                     <td>{chat.time}</td>
                     <td className='flex gap-3 items-center text-xl'>
-                      <p>
-                        <MdForwardToInbox
-                          className={`${styles.shadow} cursor-pointer`}
-                        />
-                      </p>
+                      <div className={`relative ${styles.shadow}`}>
+                        <span className='absolute -right-1 -top-1 w-2 h-2 bg-green-500 rounded-full'></span>
+                        <p>
+                          <MdForwardToInbox className={`cursor-pointer`} />
+                        </p>
+                      </div>
                       <p>
                         <IoMdCloseCircleOutline
                           className={`${styles.shadow} cursor-pointer rounded-full`}
@@ -507,8 +530,8 @@ const HomeDash = () => {
         </div>
         <div className='space-y-3'>
           <h3 className='text-2xl font-bold'>All Tickets ({tickets.length})</h3>
-          <div className='overflow-x-auto'>
-            <table className={`table ${styles.shadow} bg-white`}>
+          <div className={`overflow-x-auto ${styles.shadow} rounded-lg`}>
+            <table className={`table `}>
               {/* head */}
               <thead>
                 <tr>
