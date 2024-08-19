@@ -13,7 +13,7 @@ const Dashboard = () => {
           hideSidebar
             ? "col-span-12 px-5 py-3 lg:px-0 lg:py-0"
             : "col-span-10 p-[6px] lg:p-0"
-        } w-full bg-gray-100 rounded-lg h-[calc(100vh-24px)] overflow-y-auto `}>
+        } w-full  rounded-lg h-[calc(100vh-24px)] overflow-y-auto `}>
         <Outlet hideSidebar={hideSidebar} />
       </div>
     </div>
