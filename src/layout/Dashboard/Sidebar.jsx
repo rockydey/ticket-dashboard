@@ -35,12 +35,12 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
         <ul className='flex gap-5 flex-col h-full'>
           <li
             className={`${
-              location.pathname === "/dashboard" ? "" : "px-5"
+              location.pathname === "/" ? "" : "px-5"
             } cursor-pointer`}>
             <Link
-              to='/dashboard'
+              to='/'
               className={`${
-                location.pathname === "/dashboard"
+                location.pathname === "/"
                   ? "flex gap-3 bg-slate-700 px-5 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
                   : "flex gap-3 items-center text-lg font-medium text-slate-500"
               }`}>
@@ -104,9 +104,9 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
             } duration-500`}>
             <li className='cursor-pointer lg:px-5'>
               <Link
-                to='/dashboard'
+                to='/'
                 className={`${
-                  location.pathname === "/dashboard"
+                  location.pathname === "/"
                     ? "flex gap-3 bg-slate-700 lg:px-5 px-2 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
                     : "flex gap-3 items-center text-lg font-medium text-slate-500"
                 }`}>

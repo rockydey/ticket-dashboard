@@ -2,18 +2,9 @@ import React from "react";
 import styles from "./HomeDash.module.css";
 import { BsFillChatDotsFill } from "react-icons/bs";
 import { IoTicketSharp } from "react-icons/io5";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { MdForwardToInbox, MdOutlineSendAndArchive } from "react-icons/md";
+import ReactApexChart from "react-apexcharts";
 
 const chats = [
   {
@@ -56,37 +47,6 @@ const chats = [
     name: "George Lee",
     message:
       "Let's make sure we're all aligned on the project objectives. It’s crucial that everyone understands the end goal.",
-    time: "10:48 AM",
-  },
-];
-
-const data = [
-  {
-    name: "Alice Johnson",
-    time: "10:12 AM",
-  },
-  {
-    name: "Bob Smith",
-    time: "10:20 AM",
-  },
-  {
-    name: "Charlie Davis",
-    time: "10:24 AM",
-  },
-  {
-    name: "Diana Patel",
-    time: "10:32 AM",
-  },
-  {
-    name: "Ethan Wright",
-    time: "10:36 AM",
-  },
-  {
-    name: "Fiona Clark",
-    time: "10:44 AM",
-  },
-  {
-    name: "George Lee",
     time: "10:48 AM",
   },
 ];
@@ -330,43 +290,58 @@ const tickets = [
 ];
 
 const HomeDash = () => {
-  const convertTimeToMinutes = (timeStr) => {
-    const [time, period] = timeStr.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
-    if (period === "PM" && hours !== 12) {
-      hours += 12;
-    } else if (period === "AM" && hours === 12) {
-      hours = 0;
-    }
-    return hours * 60 + minutes;
-  };
-
-  const formattedData = data.map((item) => ({
-    name: item.name,
-    time: convertTimeToMinutes(item.time),
+  const chatData = chats.map((chat) => ({
+    x: new Date(`2024-08-01 ${chat.time}`).toString(),
+    y: 1,
   }));
+
+  const ticketData = tickets.map((ticket) => ({
+    x: new Date(ticket.date).toString(),
+    y: 1,
+  }));
+
+  const combinedData = [...chatData, ...ticketData];
+
+  const chartOptions = {
+    chart: {
+      type: "area",
+      height: 250,
+    },
+    series: [
+      {
+        name: "Chats & Tickets",
+        data: combinedData,
+      },
+    ],
+    xaxis: {
+      type: "datetime",
+    },
+    yaxis: {
+      title: {
+        text: "Count",
+      },
+    },
+    stroke: {
+      curve: "smooth",
+    },
+    fill: {
+      type: "gradient",
+    },
+  };
 
   return (
     <div className='p-5 space-y-3 bg-white'>
       {/* Top View */}
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
         <div
-          className={`${styles.shadow} flex gap-2 items-center justify-center rounded-lg w-full h-64 p-5`}>
-          <ResponsiveContainer width='100%' height='100%'>
-            <LineChart width={400} height={300} data={formattedData}>
-              <XAxis dataKey='name' />
-              <YAxis
-                label={{
-                  value: "Time",
-                  angle: -90,
-                  position: "insideLeft",
-                }}
-              />
-              <Tooltip labelFormatter={(name) => `Name: ${name}`} />
-              <Legend />
-              <Line type='monotone' dataKey='time' stroke='#8884d8' />
-            </LineChart>
-          </ResponsiveContainer>
+          id='chart'
+          className={`${styles.shadow} flex gap-2 items-center justify-center rounded-lg w-full h-64 pt-3`}>
+          <ReactApexChart
+            options={chartOptions}
+            series={chartOptions.series}
+            type='area'
+            height={250}
+          />
         </div>
         <div
           className={`${styles.shadow} flex gap-2 items-center text-5xl font-bold justify-center  py-10 rounded-lg`}>
