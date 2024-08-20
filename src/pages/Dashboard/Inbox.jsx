@@ -588,7 +588,7 @@ const Inbox = () => {
         <div
           className={`${
             showChat ? "inline-block w-full" : "hidden"
-          } lg:inline-block lg:max-w-[940px] lg:min-w-[700px] ${
+          } lg:inline-block ${
             isOpen ? "translate-x-0" : ""
           } flex-1 transform transition-transform duration-500 ease-in-out`}>
           <ChatInterface
