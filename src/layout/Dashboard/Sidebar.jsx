@@ -55,10 +55,19 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
               <TbAnalyze /> Analysis
             </p>
           </li>
-          <li className='cursor-pointer px-5'>
-            <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
+          <li
+            className={`${
+              location.pathname === "/inbox" ? "" : "px-5"
+            } cursor-pointer`}>
+            <Link
+              to='/inbox'
+              className={`${
+                location.pathname === "/inbox"
+                  ? "flex gap-3 bg-slate-700 px-5 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                  : "flex gap-3 items-center text-lg font-medium text-slate-500"
+              }`}>
               <MdOutlineAllInbox /> Inbox
-            </p>
+            </Link>
           </li>
           <li
             className={`${
