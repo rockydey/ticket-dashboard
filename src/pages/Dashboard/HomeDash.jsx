@@ -333,10 +333,10 @@ const HomeDash = () => {
   });
 
   return (
-    <div className='lg:p-5 space-y-3 bg-white w-full'>
+    <div className='lg:px-5 lg:pb-5 lg:pt-2 space-y-3 bg-white w-full'>
       <div className='grid grid-cols-12 gap-3 w-full'>
         <div
-          className={`${styles.shadow} pt-5 col-span-12 lg:col-span-4 rounded-lg w-full`}>
+          className={`${styles.shadow} lg:pt-5 col-span-12 lg:col-span-4 rounded-lg w-full`}>
           <ReactApexChart
             options={chartState.options}
             series={chartState.series}

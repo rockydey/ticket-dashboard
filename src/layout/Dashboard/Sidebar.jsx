@@ -33,9 +33,9 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
     <div
       className={`${
         !hideSidebar && "col-span-2 bg-slate-900"
-      } lg:col-span-2 lg:bg-slate-900 lg:h-[calc(100vh-24px)] py-5 lg:p-5 rounded-lg duration-500 overflow-y-hidden`}>
+      } lg:col-span-2 lg:bg-slate-900 lg:h-[calc(100vh-24px)] lg:p-5 rounded-e-lg lg:rounded-lg duration-500 overflow-y-hidden`}>
       {!forMobile ? (
-        <ul className='flex gap-5 flex-col h-full'>
+        <ul className='flex gap-5 flex-col h-full py-5'>
           <li
             className={`${
               location.pathname === "/" ? "" : "px-5"
@@ -103,8 +103,8 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
             className={`${
               hideSidebar
                 ? "hidden"
-                : "flex gap-5 flex-col h-full items-center lg:items-start"
-            } duration-500`}>
+                : "flex gap-5 flex-col h-[calc(100vh-40px)] items-center lg:items-start"
+            } duration-500  py-5`}>
             <li className='cursor-pointer lg:px-5'>
               <Link
                 to='/'
@@ -163,7 +163,7 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
           <button
             onClick={() => setHideSidebar(!hideSidebar)}
             className={`p-2 bg-slate-500 rounded-full text-xl shadow-inner fixed top-1/2 ${
-              hideSidebar ? "left-1" : "left-12"
+              hideSidebar ? "left-1" : "left-[9%]"
             } cursor-pointer z-50 duration-500`}>
             {hideSidebar ? <IoIosArrowForward /> : <IoIosArrowBack />}
           </button>
