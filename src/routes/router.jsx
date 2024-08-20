@@ -3,6 +3,7 @@ import Dashboard from "../layout/Dashboard/Dashboard";
 import HomeDash from "../pages/Dashboard/HomeDash";
 import Tickets from "../pages/Dashboard/Tickets";
 import Inbox from "../pages/Dashboard/Inbox";
+import Chat from "../pages/Dashboard/Chat";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
       {
         path: "/inbox",
         element: <Inbox />,
+      },
+      {
+        path: "/inbox/:id",
+        element: <Chat />,
       },
       {
         path: "/tickets",

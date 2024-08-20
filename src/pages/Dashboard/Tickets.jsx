@@ -7,6 +7,7 @@ import TabView from "../../components/TabView/TabView";
 import CardView from "../../components/CardView/CardView";
 import Modal from "react-modal";
 import { RiListView } from "react-icons/ri";
+import { GoTriangleDown } from "react-icons/go";
 
 const tickets = [
   {
@@ -268,6 +269,7 @@ const Tickets = ({ hideSidebar }) => {
   const { register, handleSubmit, reset } = useForm();
   const [currentPage, setCurrentPage] = useState(1);
   const [listView, setListView] = useState(false);
+  const [filterTicket, setFilterTicket] = useState("all");
 
   const ticketsPerPage = 5;
 
@@ -336,11 +338,13 @@ const Tickets = ({ hideSidebar }) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleTotalTicket = () => {
+    setFilterTicket("all");
     const storedTickets = localStorage.getItem("tickets");
     setAllTickets(JSON.parse(storedTickets));
   };
 
   const handleOpenTicket = () => {
+    setFilterTicket("open");
     const sorted = [...allTickets].sort((a, b) =>
       a.status === "open" ? -1 : 1
     );
@@ -349,6 +353,7 @@ const Tickets = ({ hideSidebar }) => {
   };
 
   const handleCloserTicket = () => {
+    setFilterTicket("closed");
     const sorted = [...allTickets].sort((a, b) =>
       a.status === "closed" ? -1 : 1
     );
@@ -357,6 +362,7 @@ const Tickets = ({ hideSidebar }) => {
   };
 
   const handleProgressTicket = () => {
+    setFilterTicket("in progress");
     const sorted = [...allTickets].sort((a, b) =>
       a.status === "in progress" ? -1 : 1
     );
@@ -393,7 +399,7 @@ const Tickets = ({ hideSidebar }) => {
     <div
       className={`${
         hideSidebar ? "col-span-12" : "col-span-10"
-      } lg:col-span-10 w-full`}>
+      } lg:col-span-10 w-full relative`}>
       <div>
         <CardView
           handleTotalTicket={handleTotalTicket}
@@ -401,6 +407,18 @@ const Tickets = ({ hideSidebar }) => {
           handleCloserTicket={handleCloserTicket}
           handleProgressTicket={handleProgressTicket}
         />
+      </div>
+      <div
+        className={`hidden lg:inline-block absolute text-2xl text-slate-400 ${
+          filterTicket === "all"
+            ? "left-[12%]"
+            : filterTicket === "open"
+            ? "left-[37%]"
+            : filterTicket === "closed"
+            ? "right-[12%]"
+            : "right-[37%]"
+        }`}>
+        <GoTriangleDown />
       </div>
       <div className='mt-5 flex flex-col lg:flex-row justify-between gap-3 lg:items-center px-4'>
         <div>
