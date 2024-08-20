@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InboxCard from "../../components/InboxCard/InboxCard";
 import InboxTab from "../../components/InboxTab/InboxTab";
+import { GoTriangleDown } from "react-icons/go";
 
 const chats = [
   {
@@ -407,33 +408,48 @@ const chats = [
 
 const Inbox = () => {
   const [chatsFilter, setChatsFilter] = useState([]);
+  const [activeChats, setActiveChats] = useState("open");
 
   useEffect(() => {
     setChatsFilter(chats.filter((chat) => chat.status === "open"));
   }, []);
 
   const handleOpenChats = () => {
+    setActiveChats("open");
     setChatsFilter(chats.filter((chat) => chat.status === "open"));
   };
 
   const handleClosedChats = () => {
+    setActiveChats("closed");
     setChatsFilter(chats.filter((chat) => chat.status === "closed"));
   };
 
   const handleAcceptedChats = () => {
+    setActiveChats("accepted");
     setChatsFilter(chats.filter((chat) => chat.status === "accepted"));
   };
 
   return (
-    <div>
+    <div className='relative'>
       <div>
         <InboxCard
+          setActiveChats={setActiveChats}
           handleOpenChats={handleOpenChats}
           handleClosedChats={handleClosedChats}
           handleAcceptedChats={handleAcceptedChats}
         />
       </div>
-      <div>
+      <div
+        className={`hidden lg:inline-block absolute text-2xl text-slate-400 ${
+          activeChats === "open"
+            ? "left-[16%]"
+            : activeChats === "accepted"
+            ? "left-[49%]"
+            : "right-[16%]"
+        }`}>
+        <GoTriangleDown />
+      </div>
+      <div className='mt-3'>
         <InboxTab chats={chatsFilter} />
       </div>
     </div>

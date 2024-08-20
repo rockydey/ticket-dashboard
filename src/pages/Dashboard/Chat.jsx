@@ -509,11 +509,13 @@ const Chat = () => {
                 <div className='pb-4'>
                   <Link
                     to={`/inbox`}
-                    className='flex items-center gap-2 px-5 text-base text-slate-700 '>
+                    className={`flex items-center ${
+                      isOpen && "justify-center"
+                    } gap-2 px-5 text-base text-slate-700 `}>
                     <p>
                       <FaArrowLeft />
                     </p>
-                    <p>Return</p>
+                    <p className={isOpen && "hidden"}>Return</p>
                   </Link>
                 </div>
               </div>
