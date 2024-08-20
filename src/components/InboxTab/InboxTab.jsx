@@ -9,7 +9,7 @@ const InboxTab = ({ chats }) => {
   return (
     <div>
       <div className='overflow-x-auto'>
-        <table className='table'>
+        <table className='table border'>
           <thead>
             <tr>
               <th>Name</th>
@@ -20,7 +20,7 @@ const InboxTab = ({ chats }) => {
           </thead>
           <tbody>
             {chats.map((chat) => (
-              <tr key={chat.id}>
+              <tr key={chat.id} className=''>
                 <td>{chat.receiver_name}</td>
                 <td>{chat.message[chat.message.length - 1].receiver}</td>
                 <td>{chat.message[chat.message.length - 1].receiver_time}</td>

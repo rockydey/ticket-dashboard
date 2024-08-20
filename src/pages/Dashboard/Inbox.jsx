@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import InboxCard from "../../components/InboxCard/InboxCard";
 import InboxTab from "../../components/InboxTab/InboxTab";
 import { GoTriangleDown } from "react-icons/go";
+import { RiListView } from "react-icons/ri";
 
 const chats = [
   {
@@ -449,7 +450,25 @@ const Inbox = () => {
         }`}>
         <GoTriangleDown />
       </div>
-      <div className='mt-3'>
+      <div>
+        <div className='flex mt-5 px-4 flex-col lg:flex-row lg:items-center lg:justify-end gap-3'>
+          <div>
+            <input
+              className='pl-5 outline-none py-[6px] rounded-lg border-2'
+              type='text'
+              name=''
+              placeholder='Search by name'
+              id=''
+            />
+          </div>
+          <div className=''>
+            <button className='flex items-center gap-2 lg:px-4 lg:py-2 px-2 py-1 text-base font-medium w-fit bg-orange-500 rounded-lg text-white'>
+              <RiListView /> All Chats
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className='mt-5'>
         <InboxTab chats={chatsFilter} />
       </div>
     </div>
