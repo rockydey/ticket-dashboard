@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaRegEdit, FaRegEnvelopeOpen } from "react-icons/fa";
+import { Link, useParams } from "react-router-dom";
+import { FaArrowLeft, FaRegEdit } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RxDragHandleDots2 } from "react-icons/rx";
-import { MdOutlineMarkEmailRead } from "react-icons/md";
-import { IoSearch } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import ChatInterface from "../../components/ChatInterface/ChatInterface";
-import { FcAcceptDatabase } from "react-icons/fc";
 
 const chats = [
   {
@@ -412,11 +409,11 @@ const chats = [
 ];
 
 const Chat = () => {
-  const [activeId, setActiveId] = useState(1);
+  const { id } = useParams();
+  const [chat, setChat] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [forMobile, setForMobile] = useState(false);
-  const [filter, setFilter] = useState("open");
 
   useEffect(() => {
     const handleResize = () => {
@@ -433,113 +430,51 @@ const Chat = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    setChat(chats.find((c) => c.id === parseInt(id)));
+  }, []);
+
   return (
     <div>
-      <div className='flex border border-[#c7c7cea5] rounded-lg h-[calc(100vh-25px)]'>
-        {/* chat body */}
-        <div
-          className={`${showChat ? "hidden" : "inline-block"}  ${
-            !isOpen ? "lg:min-w-80" : ""
-          } w-full flex-1 lg:max-w-28 lg:border-r lg:border-[#c7c7cea5] flex`}>
-          <div
-            className={`"w-[15%] bg-[#1D2939] h-full pt-4 rounded-l text-lg text-white flex flex-col items-center"
-            `}>
+      {chat !== null && (
+        <div>
+          <div className='flex border border-[#c7c7cea5] rounded-lg h-[calc(100vh-25px)]'>
+            {/* chat body */}
             <div
-              className={`py-4 ${
-                filter === "open" ? "px-1" : "px-2"
-              } border-b border-[#c7c7cea5]`}>
-              <button
-                title='open chat'
-                className={`${filter === "open" && "bg-blue-600 p-1 rounded"}`}
-                onClick={() => setFilter("open")}>
-                <FaRegEnvelopeOpen />
-              </button>
-            </div>
-            <div
-              className={`py-4 ${
-                filter === "closed" ? "px-1" : "px-2"
-              } border-b border-[#c7c7cea5]`}>
-              <button
-                title='closed chat'
-                onClick={() => setFilter("closed")}
-                className={`${
-                  filter === "closed" && "bg-blue-600 p-1 rounded"
-                }`}>
-                <MdOutlineMarkEmailRead />
-              </button>
-            </div>
-            <div
-              className={`py-4 ${
-                filter === "accepted" ? "px-1" : "px-2"
-              } border-b border-[#c7c7cea5]`}>
-              <button
-                title='accepted chat'
-                className={`${
-                  filter === "accepted" && "bg-blue-600 p-1 rounded"
-                }`}
-                onClick={() => setFilter("accepted")}>
-                <FcAcceptDatabase />
-              </button>
-            </div>
-            <div
-              className={`${
-                isOpen ? "py-4 px-2 border-b border-[#c7c7cea5]" : "hidden"
-              }`}>
-              <button>
-                <IoSearch />
-              </button>
-            </div>
-          </div>
-          <div className={`w-[85%] pt-4 px-4 lg:px-0`}>
-            <div
-              className={`${
-                isOpen ? "hidden" : ""
-              } flex justify-between items-center mb-3 px-4`}>
-              <div>
-                <h4 className='text-2xl text-blue-500 font-medium'>Messages</h4>
-              </div>
-              <div className='flex items-center gap-4'>
-                <Link href='#'>
-                  <HiOutlineDotsHorizontal className='text-xl' />
-                </Link>
-                <Link href='#'>
-                  <FaRegEdit className='text-xl' />
-                </Link>
-              </div>
-            </div>
-            <div className={`lg:px-5 mb-3 ${isOpen ? "hidden" : ""}`}>
-              <div className='flex items-center gap-1 bg-slate-100 py-2 px-5 rounded-md'>
-                <p>
-                  <IoSearch className='text-[#bdbdc4]' />
-                </p>
-                <input
-                  type='text'
-                  placeholder='Search'
-                  className='outline-none bg-transparent'
-                  name=''
-                  id=''
-                />
-              </div>
-            </div>
-            <div className=''>
-              {chats.map(
-                (chat) =>
-                  chat.status === filter && (
+              className={`${showChat ? "hidden" : "block"}  ${
+                !isOpen ? "lg:min-w-80" : ""
+              } w-full flex-1 lg:max-w-20 lg:border-r lg:border-[#c7c7cea5] flex`}>
+              <div
+                className={`w-full pt-4 px-4 lg:px-0 h-full flex flex-col justify-between`}>
+                <div>
+                  <div
+                    className={`${
+                      isOpen ? "hidden" : ""
+                    } flex justify-between items-center mb-3 px-4`}>
+                    <div>
+                      <h4 className='text-2xl text-blue-500 font-medium'>
+                        Messages
+                      </h4>
+                    </div>
+                    <div className='flex items-center gap-4'>
+                      <Link href='#'>
+                        <HiOutlineDotsHorizontal className='text-xl' />
+                      </Link>
+                      <Link href='#'>
+                        <FaRegEdit className='text-xl' />
+                      </Link>
+                    </div>
+                  </div>
+                  <div className=''>
                     <div
                       onClick={() => {
-                        setActiveId(chat.id);
                         forMobile && setShowChat(true);
                       }}
-                      key={chat.id}
                       className={` ${
                         isOpen
                           ? "lg:bg-[#fff] lg:hover:bg-[#fff] duration-500"
                           : "flex items-center gap-4 lg:px-5 rounded-md duration-500"
-                      } ${
-                        chat.id === activeId
-                          ? "lg:bg-[#f9f9fa]"
-                          : "lg:hover:bg-[#f1f1f3]"
-                      } py-4 cursor-pointer border-b border-[#c7c7ce] lg:border-none`}>
+                      }  py-4 cursor-pointer border-b border-[#c7c7ce] lg:border-none`}>
                       <div className='text-center'>
                         <img
                           src={chat.receiver_img}
@@ -569,35 +504,45 @@ const Chat = () => {
                         </div>
                       </div>
                     </div>
-                  )
-              )}
+                  </div>
+                </div>
+                <div className='pb-4'>
+                  <Link
+                    to={`/inbox`}
+                    className='flex items-center gap-2 px-5 text-base text-slate-700 '>
+                    <p>
+                      <FaArrowLeft />
+                    </p>
+                    <p>Return</p>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className='w-[1px] hidden lg:block border-r border-[#c7c7cea5] relative'>
+              <div
+                onClick={toggleDrawer}
+                className='absolute cursor-not-allowed top-1/2 -left-2 bg-[#c7c7cea5] p-[1px] rounded-sm lg:cursor-pointer'>
+                <RxDragHandleDots2 className='text-xs' />
+              </div>
+            </div>
+
+            {/* chat interface */}
+            <div
+              className={`${
+                showChat ? "inline-block w-full" : "hidden"
+              } lg:inline-block ${
+                isOpen ? "translate-x-0" : ""
+              } flex-1 transform transition-transform duration-500 ease-in-out`}>
+              <ChatInterface
+                setShowChat={setShowChat}
+                forMobile={forMobile}
+                chat={chat}
+              />
             </div>
           </div>
         </div>
-
-        <div className='w-[1px] hidden lg:block border-r border-[#c7c7cea5] relative'>
-          <div
-            onClick={toggleDrawer}
-            className='absolute cursor-not-allowed top-1/2 -left-2 bg-[#c7c7cea5] p-[1px] rounded-sm lg:cursor-pointer'>
-            <RxDragHandleDots2 className='text-xs' />
-          </div>
-        </div>
-
-        {/* chat interface */}
-        <div
-          className={`${
-            showChat ? "inline-block w-full" : "hidden"
-          } lg:inline-block ${
-            isOpen ? "translate-x-0" : ""
-          } flex-1 transform transition-transform duration-500 ease-in-out`}>
-          <ChatInterface
-            filter={filter}
-            setShowChat={setShowChat}
-            forMobile={forMobile}
-            activeId={activeId}
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

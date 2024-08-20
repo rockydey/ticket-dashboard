@@ -809,10 +809,10 @@ const chats = [
   },
 ];
 
-const ChatInterface = ({ filter, setShowChat, forMobile, activeId }) => {
-  const [message, setMessage] = useState([]);
+const ChatInterface = ({ setShowChat, forMobile, chat }) => {
+  const [message, setMessage] = useState(chat.message);
   const [activeText, setActiveText] = useState([]);
-  const { receiver_name, receiver_img, sender_img } = activeText;
+  const { receiver_name, receiver_img, sender_img } = chat;
   const chatRef = useRef(null);
   const [input, setInput] = useState([]);
   const [file, setFile] = useState([]);
@@ -823,22 +823,6 @@ const ChatInterface = ({ filter, setShowChat, forMobile, activeId }) => {
   const [modalImage, setModalImage] = useState(null);
   const [buttonAnimation, setButtonAnimation] = useState("");
   const [pdfUrl, setPdfUrl] = useState(null);
-
-  useEffect(() => {
-    setMessage(conversation.find((c) => c.id === activeId).message);
-  }, [activeId]);
-
-  useEffect(() => {
-    setActiveText(chats.find((chat) => chat.status === filter));
-    setInput([]);
-    setDisplay([]);
-  }, [filter, chats]);
-
-  useEffect(() => {
-    setActiveText(chats.find((chat) => chat.id === activeId));
-    setInput([]);
-    setDisplay([]);
-  }, [activeId, chats]);
 
   useEffect(() => {
     if (chatRef.current) {
