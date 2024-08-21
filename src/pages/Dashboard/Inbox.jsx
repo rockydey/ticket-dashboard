@@ -425,6 +425,13 @@ const Inbox = () => {
     setChatsFilter(chats.filter((chat) => chat.status === "closed"));
   };
 
+  const handleChangeInbox = (id, value) => {
+    const filterItem = chatsFilter.find((item) => item.id === id);
+    const updateFilter = { ...filterItem, status: value };
+    const restItem = chatsFilter.filter((item) => item.id !== id);
+    setChatsFilter([...restItem, updateFilter].sort((a, b) => a.id - b.id));
+  };
+
   const handleAcceptedChats = () => {
     setActiveChats("accepted");
     setChatsFilter(chats.filter((chat) => chat.status === "accepted"));
@@ -469,7 +476,7 @@ const Inbox = () => {
         </div>
       </div>
       <div className='mt-5'>
-        <InboxTab chats={chatsFilter} />
+        <InboxTab chats={chatsFilter} handleChangeInbox={handleChangeInbox} />
       </div>
     </div>
   );

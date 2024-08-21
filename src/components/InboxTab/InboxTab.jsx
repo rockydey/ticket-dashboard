@@ -5,7 +5,7 @@ import styles from "./InboxTab.module.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const InboxTab = ({ chats }) => {
+const InboxTab = ({ chats, handleChangeInbox }) => {
   return (
     <div>
       <div className='overflow-x-auto'>
@@ -15,6 +15,8 @@ const InboxTab = ({ chats }) => {
               <th>Name</th>
               <th>Message</th>
               <th>Time</th>
+              <th>Status</th>
+              <th>Sender</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -24,6 +26,42 @@ const InboxTab = ({ chats }) => {
                 <td>{chat.receiver_name}</td>
                 <td>{chat.message[chat.message.length - 1].receiver}</td>
                 <td>{chat.message[chat.message.length - 1].receiver_time}</td>
+                <td>
+                  <select
+                    onChange={(e) => {
+                      handleChangeInbox(chat.id, e.target.value);
+                    }}
+                    className={`${
+                      chat.status === "open"
+                        ? "text-green-500 border-green-500 bg-green-200"
+                        : chat.status === "closed"
+                        ? "text-red-500 bg-red-200 border-red-500"
+                        : chat.status === "accepted" &&
+                          "text-orange-500 border-orange-500 bg-orange-200"
+                    } text-xs font-medium w-fit border  px-2 py-[1px] outline-none rounded`}
+                    defaultValue={chat.status}
+                    name='status'
+                    id='status'>
+                    <option className='bg-white text-slate-800' value='open'>
+                      Open
+                    </option>
+                    <option className='bg-white text-slate-800' value='closed'>
+                      Closed
+                    </option>
+                    <option
+                      className='bg-white text-slate-800'
+                      value='accepted'>
+                      Accepted
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <img
+                    src={chat.receiver_img}
+                    className='w-10 rounded-full'
+                    alt=''
+                  />
+                </td>
                 {chat.status === "open" && (
                   <td className='flex gap-5 items-center text-xl'>
                     <Link
