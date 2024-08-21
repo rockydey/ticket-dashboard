@@ -131,9 +131,15 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
               </p>
             </li>
             <li className='cursor-pointer lg:px-5'>
-              <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
+              <Link
+                to='/inbox'
+                className={`${
+                  location.pathname === "/inbox"
+                    ? "flex gap-3 bg-slate-700 lg:px-5 px-2 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                    : "flex gap-3 items-center text-lg font-medium text-slate-500"
+                }`}>
                 <MdOutlineAllInbox />
-              </p>
+              </Link>
             </li>
             <li className={`cursor-pointer`}>
               <Link

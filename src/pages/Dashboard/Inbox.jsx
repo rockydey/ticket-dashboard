@@ -457,7 +457,7 @@ const Inbox = () => {
         }`}>
         <GoTriangleDown />
       </div>
-      <div className='mt-5 px-4 flex justify-between items-center'>
+      <div className='mt-5 px-4 flex flex-col lg:flex-row justify-between gap-2 lg:items-center'>
         <div className='text-2xl font-bold text-slate-700'>
           All Chats ({chatsFilter?.length})
         </div>
