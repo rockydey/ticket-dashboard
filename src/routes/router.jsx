@@ -4,6 +4,7 @@ import HomeDash from "../pages/Dashboard/HomeDash";
 import Tickets from "../pages/Dashboard/Tickets";
 import Inbox from "../pages/Dashboard/Inbox";
 import Chat from "../pages/Dashboard/Chat";
+import Analysis from "../pages/Dashboard/Analysis";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "/inbox/:id",
         element: <Chat />,
+      },
+      {
+        path: "/analysis",
+        element: <Analysis />,
       },
       {
         path: "/tickets",

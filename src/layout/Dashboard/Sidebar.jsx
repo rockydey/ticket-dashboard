@@ -50,10 +50,19 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
               <MdOutlineDashboard /> Dashboard
             </Link>
           </li>
-          <li className='cursor-pointer px-5'>
-            <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
+          <li
+            className={`${
+              location.pathname === "/analysis" ? "" : "px-5"
+            } cursor-pointer`}>
+            <Link
+              to='/analysis'
+              className={`${
+                location.pathname === "/analysis"
+                  ? "flex gap-3 bg-slate-700 px-5 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                  : "flex gap-3 items-center text-lg font-medium text-slate-500"
+              }`}>
               <TbAnalyze /> Analysis
-            </p>
+            </Link>
           </li>
           <li
             className={`${
@@ -126,9 +135,15 @@ const Sidebar = ({ hideSidebar, setHideSidebar }) => {
               </Link>
             </li>
             <li className='cursor-pointer lg:px-5'>
-              <p className='flex gap-3 items-center text-lg font-medium text-slate-500'>
+              <Link
+                to='/analysis'
+                className={`${
+                  location.pathname === "/analysis"
+                    ? "flex gap-3 bg-slate-700 lg:px-5 px-2 py-2 rounded-lg items-center text-lg font-medium text-slate-300"
+                    : "flex gap-3 items-center text-lg font-medium text-slate-500"
+                }`}>
                 <TbAnalyze />
-              </p>
+              </Link>
             </li>
             <li className='cursor-pointer lg:px-5'>
               <Link
