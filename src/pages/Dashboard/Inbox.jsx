@@ -457,8 +457,11 @@ const Inbox = () => {
         }`}>
         <GoTriangleDown />
       </div>
-      <div>
-        <div className='flex mt-5 px-4 flex-col lg:flex-row lg:items-center lg:justify-end gap-3'>
+      <div className='mt-5 px-4 flex justify-between items-center'>
+        <div className='text-2xl font-bold text-slate-700'>
+          All Chats ({chatsFilter?.length})
+        </div>
+        <div className='flex flex-col lg:flex-row lg:items-center lg:justify-end gap-3'>
           <div>
             <input
               className='pl-5 outline-none py-[6px] rounded-lg border-2'
@@ -470,7 +473,7 @@ const Inbox = () => {
           </div>
           <div className=''>
             <button className='flex items-center gap-2 lg:px-4 lg:py-2 px-2 py-1 text-base font-medium w-fit bg-orange-500 rounded-lg text-white'>
-              <RiListView /> All Chats
+              <RiListView /> Chat List
             </button>
           </div>
         </div>
